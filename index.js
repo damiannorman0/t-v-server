@@ -40,7 +40,7 @@ const server = () => {
 			while (n--) fn();
 		};
 	};
-	const processes = cluster.isMaster ? getForks(cluster.fork, 2) : runServer;
+	const processes = cluster.isMaster ? getForks(cluster.fork, 1) : runServer;
 	processes && processes();
 };
 

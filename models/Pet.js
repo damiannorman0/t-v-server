@@ -7,6 +7,10 @@ const petSchema = new Schema({
 		type: String,
 		required: true
 	},
+	internalID: {
+		type: Number,
+		required: true
+	},
 	meta: {},
 	created_at: Date,
 	updated_at: Date
