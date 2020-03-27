@@ -32,12 +32,6 @@ router.get('/', cache(plateCacheLimit, checkStatus), async (req,res, next) => {
       res.setHeader('Content-Type', 'application/json');
       res.send(data);
     });
-
-  // Pet.find({}, (error, data) => {
-  //   res.status(200);
-  //   res.setHeader('Content-Type', 'application/json');
-  //   res.send(data);
-  // });
 });
 
 router.get('/:id', cache(plateCacheLimit, checkStatus), async (req,res, next) => {
