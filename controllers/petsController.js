@@ -5,10 +5,18 @@ modPath.addPath(`${__dirname}/../../../`);
 
 const express = require('express');
 const router = express.Router();
+
+const apicache = require('apicache');
+const cache = apicache.middleware;
+const plateCacheLimit = '59 minutes';
+const checkStatus = (req, res) => {
+  return res.statusCode === 200;
+};
+
 const Pet = require('../models/Pet');
 
 
-router.get('/', async (req,res, next) => {
+router.get('/', cache(plateCacheLimit, checkStatus), async (req,res, next) => {
   const {page, size} = req.query;
 
   Pet.find({}, (error, data) => {
@@ -18,7 +26,7 @@ router.get('/', async (req,res, next) => {
   });
 });
 
-router.get('/:id', async (req,res, next) => {
+router.get('/:id', cache(plateCacheLimit, checkStatus), async (req,res, next) => {
   const {id} = req.params;
 
   Pet.findById(id, (error, data) => {
