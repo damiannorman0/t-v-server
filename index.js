@@ -14,6 +14,13 @@ const tryToCatch = require('try-to-catch');
 
 //server access
 const runServer = async () => {
+	const dbConnect = 'mongodb://localhost:27017';
+	const db = require('db');
+	const result = await db(dbConnect);
+
+	!result && process.exit();
+	console.log('DB connected: ' + result);
+
 	const server = require('server');
 	const serverPort = 7000;
 	const [serverConnectionError, serverConnected] = await tryToCatch(server, {
