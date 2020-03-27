@@ -39,6 +39,7 @@
     "helmet": "^3.21.3",
     "minimist": "^1.2.5",
     "mongoose": "^5.9.6",
+    "mongoose-paginate-v2": "^1.3.7",
     "mongoose-sanitize-json": "^2.0.0",
     "save": "^2.4.0",
     "should-promised": "^0.3.1",

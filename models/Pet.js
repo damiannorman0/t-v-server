@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
+
 const Schema = mongoose.Schema;
 const sanitizeJSON = require('mongoose-sanitize-json');
 
@@ -20,6 +22,7 @@ petSchema.index({
 	name: 'text'
 });
 
+petSchema.plugin(mongoosePaginate);
 petSchema.plugin(sanitizeJSON);
 module.exports = mongoose.model('Pet', petSchema);
 

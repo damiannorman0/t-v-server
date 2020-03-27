@@ -17,13 +17,27 @@ const Pet = require('../models/Pet');
 
 
 router.get('/', cache(plateCacheLimit, checkStatus), async (req,res, next) => {
-  const {page, size} = req.query;
+  const {page = 1, limit = 10} = req.query;
 
-  Pet.find({}, (error, data) => {
-    res.status(200);
-    res.setHeader('Content-Type', 'application/json');
-    res.send(data);
-  });
+  const options = {
+    page: +page,
+    limit: +limit,
+    collation: {
+      locale: 'en'
+    }
+  };
+
+  Pet.paginate({}, options, (error, data) => {
+      res.status(200);
+      res.setHeader('Content-Type', 'application/json');
+      res.send(data);
+    });
+
+  // Pet.find({}, (error, data) => {
+  //   res.status(200);
+  //   res.setHeader('Content-Type', 'application/json');
+  //   res.send(data);
+  // });
 });
 
 router.get('/:id', cache(plateCacheLimit, checkStatus), async (req,res, next) => {
