@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 10000 --exit"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,14 @@
     "url": "https://github.com/damiannorman0/t-v-server/issues"
   },
   "homepage": "https://github.com/damiannorman0/t-v-server#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "eslint": "4.16.0",
+    "eslint-plugin-react": "^7.6.1",
+    "mocha": "^5.0.0",
+    "mocha-eslint": "^4.1.0"
+  },
   "dependencies": {
     "agenda": "^3.0.0",
     "app-module-path": "^2.2.0",
@@ -31,6 +38,7 @@
     "helmet": "^3.21.3",
     "minimist": "^1.2.5",
     "mongoose": "^5.9.6",
+    "mongoose-sanitize-json": "^2.0.0",
     "save": "^2.4.0",
     "throng": "^4.0.0",
     "try-to-catch": "^3.0.0"
