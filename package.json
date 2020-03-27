@@ -1,0 +1,38 @@
+{
+  "name": "televet-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/damiannorman0/t-v-server.git"
+  },
+  "author": "Damian Norman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/damiannorman0/t-v-server/issues"
+  },
+  "homepage": "https://github.com/damiannorman0/t-v-server#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "agenda": "^3.0.0",
+    "app-module-path": "^2.2.0",
+    "body-parser": "^1.19.0",
+    "colors": "^1.4.0",
+    "console": "^0.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "envfile": "^4.5.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.3",
+    "minimist": "^1.2.5",
+    "mongoose": "^5.9.5",
+    "save": "^2.4.0",
+    "throng": "^4.0.0",
+    "try-to-catch": "^3.0.0"
+  }
+}
