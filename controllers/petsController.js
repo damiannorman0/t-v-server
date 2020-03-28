@@ -14,10 +14,18 @@ const checkStatus = (req, res) => {
 };
 
 const Pet = require('../models/Pet');
+const errorUtils = require('../utils/ErrorUtils');
+
+const okResponse = ({res, data}) => {
+  res.status(200);
+  res.setHeader('Content-Type', 'application/json');
+  res.send(data);
+};
 
 
 router.get('/', cache(plateCacheLimit, checkStatus), async (req,res, next) => {
   const {page = 1, limit = 10} = req.query;
+
 
   const options = {
     page: +page,
@@ -27,20 +35,21 @@ router.get('/', cache(plateCacheLimit, checkStatus), async (req,res, next) => {
     }
   };
 
+  if(limit < 1 || page < 1) {
+    errorUtils.handle(res, next, {name: 'invalid'});
+    return;
+  }
+
   Pet.paginate({}, options, (error, data) => {
-      res.status(200);
-      res.setHeader('Content-Type', 'application/json');
-      res.send(data);
-    });
+    (!data || error) ? errorUtils.handle(res, next, error) : okResponse({res, data});
+  });
 });
 
 router.get('/:id', cache(plateCacheLimit, checkStatus), async (req,res, next) => {
   const {id} = req.params;
 
   Pet.findById(id, (error, data) => {
-    res.status(200);
-    res.setHeader('Content-Type', 'application/json');
-    res.send(data);
+    (!data || error) ? errorUtils.handle(res, next, error) : okResponse({res, data});
   });
 });
 
