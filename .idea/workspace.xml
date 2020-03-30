@@ -22,13 +22,13 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/utils" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/utils" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/utils" />
       <recent name="$PROJECT_DIR$/models" />
     </key>
   </component>
@@ -74,7 +74,10 @@
       <workItem from="1585345161215" duration="3000" />
       <workItem from="1585419558018" duration="1589000" />
       <workItem from="1585426612884" duration="1731000" />
-      <workItem from="1585428432755" duration="1230000" />
+      <workItem from="1585428432755" duration="1780000" />
+      <workItem from="1585432347067" duration="14000" />
+      <workItem from="1585451139655" duration="750000" />
+      <workItem from="1585528649424" duration="1362000" />
     </task>
     <servers />
   </component>

@@ -11,10 +11,17 @@ const cluster = require('cluster');
 const {error, success} = require('utils/console');
 const tryToCatch = require('try-to-catch');
 
+const path = '.env';
+const dotenv = require('dotenv');
+dotenv.config({
+	path
+});
+const {env = {}} = process;
+const {DB_CONNECT, SERVER_PORT, NUM_WORKERS} = env;
 
 //server access
 const runServer = async () => {
-	const dbConnect = 'mongodb://localhost:27017';
+	const dbConnect = DB_CONNECT || 'mongodb://localhost:27017';
 	const db = require('db');
 	const result = await db(dbConnect);
 
@@ -22,7 +29,7 @@ const runServer = async () => {
 	console.log('DB connected: ' + result);
 
 	const server = require('server');
-	const serverPort = 7000;
+	const serverPort = SERVER_PORT || 7000;
 	const [serverConnectionError, serverConnected] = await tryToCatch(server, {
 		serverPort
 	});
@@ -40,7 +47,7 @@ const server = () => {
 			while (n--) fn();
 		};
 	};
-	const processes = cluster.isMaster ? getForks(cluster.fork, 1) : runServer;
+	const processes = cluster.isMaster ? getForks(cluster.fork, NUM_WORKERS || 1) : runServer;
 	processes && processes();
 };
 
