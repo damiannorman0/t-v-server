@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 
 const cors = require('cors');
-const petsController = require('controllers/petsController');
+const petsRoute = require('routes/pets');
 const tryToCatch = require('try-to-catch');
 
 module.exports = async ({serverPort}) => {
@@ -16,7 +16,7 @@ module.exports = async ({serverPort}) => {
 
 
 	app.use(helmet());
-	app.use('/api/pets', petsController);
+	app.use('/api/pets', petsRoute);
 	app.use(urlencoded && urlencoded({
 		extended: false
 	}));
