@@ -17,9 +17,7 @@ const Pet = require('../models/Pet');
 const errorUtils = require('../utils/ErrorUtils');
 
 const okResponse = ({res, data}) => {
-  res.status(200);
-  res.setHeader('Content-Type', 'application/json');
-  res.send(data);
+  res.json(data);
 };
 
 
