@@ -34,12 +34,13 @@ router.get('/', cache(plateCacheLimit, checkStatus), async (req,res, next) => {
   };
 
   if(limit < 1 || page < 1) {
-    errorUtils.handle(res, next, {name: 'invalid'});
+    const error = {name: 'invalid'};
+    errorUtils.handle({req, res, next, error});
     return;
   }
 
-  Pet.paginate({}, options, (error, data) => {
-    (!data || error) ? errorUtils.handle(res, next, error) : okResponse({res, data});
+  Pet.paginate({}, options, (err, data) => {
+    (!data || err) ? errorUtils.handle({req, res, next, err}) : okResponse({res, data});
   });
 });
 
@@ -47,7 +48,7 @@ router.get('/:id', cache(plateCacheLimit, checkStatus), async (req,res, next) =>
   const {id} = req.params;
 
   Pet.findById(id, (error, data) => {
-    (!data || error) ? errorUtils.handle(res, next, error) : okResponse({res, data});
+    (!data || error) ? errorUtils.handle({req, res, next, error}) : okResponse({res, data});
   });
 });
 

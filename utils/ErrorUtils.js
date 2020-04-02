@@ -1,19 +1,19 @@
 
 
 const errorUtils = {
-	handle: (res, next, error) => {
+	handle: ({req, res, next, error}) => {
 		const e = error || {
 			name: 'notFound'
 		};
 
-		const {name = '', message = ''} = e;
+		const {name = '', message:mess = ''} = e;
 		const normalized = name.toLowerCase();
 		const func = ref[normalized] || errorUtils[normalized];
 
-		return func({res, next, mess:message});
+		return func({req, res, next, mess});
 	},
 
-	invalid: ({res, next, mess}) => {
+	invalid: ({req, res, next, mess}) => {
 		const message = mess || 'invalid request';
 		const e = new Error(message);
 		e.status = 400;
@@ -23,10 +23,16 @@ const errorUtils = {
 		}
 
 		res.statusCode = 400;
+
+		if (req.accepts('json')) {
+			next('invalid request');
+			return;
+		}
+
 		next(e);
 	},
 
-	duplicate: ({res, next, id = -1, mess}) => {
+	duplicate: ({req, res, next, id = -1, mess}) => {
 		const message = mess || `document already exists: ${id}`;
 		const e = new Error(message);
 		e.status = 409;
@@ -40,7 +46,7 @@ const errorUtils = {
 		next(e);
 	},
 
-	notFound: ({res, next, mess}) => {
+	notFound: ({req, res, next, mess}) => {
 		const message = mess || 'document does not exist';
 		const e = new Error(message);
 		e.status = 404;
@@ -50,10 +56,16 @@ const errorUtils = {
 		}
 
 		res.statusCode = 404;
+
+		if (req.accepts('json')) {
+			next('not found');
+			return;
+		}
+
 		next(e);
 	},
 
-	missingParam: ({param, res, next, mess}) => {
+	missingParam: ({param, req, res, next, mess}) => {
 		const message = mess || `invalid request, missing param: ${param}`;
 		const e = new Error(message);
 		e.status = 400;
@@ -66,7 +78,7 @@ const errorUtils = {
 		next(e);
 	},
 
-	invalidGeo: ({res, next, mess}) => {
+	invalidGeo: ({req, res, next, mess}) => {
 		const message = mess || 'invalid  geo data';
 		const e = new Error(message);
 		e.status = 400;
@@ -79,7 +91,7 @@ const errorUtils = {
 		next(e);
 	},
 
-	permissionDenied: ({res, next, extra = '', mess}) => {
+	permissionDenied: ({req, res, next, extra = '', mess}) => {
 		const message = mess || `permission denied ${extra}`;
 		const e = new Error(message);
 		e.status = 401;
@@ -92,7 +104,7 @@ const errorUtils = {
 		next(e);
 	},
 
-	saveError: ({res, next, mess}) => {
+	saveError: ({req, res, next, mess}) => {
 		const message = mess || 'error on save';
 		const e = new Error(message);
 		e.status = 500;
