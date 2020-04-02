@@ -6,9 +6,6 @@ const errorUtils = {
 			name: 'notFound'
 		};
 
-		console.log('errpr');
-		console.log(e);
-
 		const {name = '', message = ''} = e;
 		const normalized = name.toLowerCase();
 		const func = ref[normalized] || errorUtils[normalized];
